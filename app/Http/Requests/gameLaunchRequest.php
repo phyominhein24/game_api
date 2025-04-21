@@ -23,7 +23,7 @@ class gameLaunchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'providercode' => 'required|string',
+            // 'providercode' => 'required|string',
             'username' => 'required|string',
             'password' => [
                 'required',
@@ -41,9 +41,10 @@ class gameLaunchRequest extends FormRequest
                     }
                 },
             ],
-            'type' => 'required|string',
-            'gameid' => 'required|string',
-            'blimit' => 'required|string',
+            'gameid' => 'required|string'
+            // 'type' => 'required|string',
+            // 'gameid' => 'required|string',
+            // 'blimit' => 'required|string',
         ];
     }
 }

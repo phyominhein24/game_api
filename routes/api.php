@@ -26,6 +26,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/members', [MemberController::class, 'store']);
+Route::get('/getBalance', [MemberController::class, 'getBalance']);
+Route::get('/getGameList', [MemberController::class, 'getGameList']);
+Route::get('/launchGame', [MemberController::class, 'launchGame']);
+
 Route::post('/forget-password', [PasswordResetController::class, 'forgetPassword'])->middleware('guest');
 Route::get('/reset-password', [PasswordResetController::class, 'resetPasswordPage'])->middleware('guest');
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->middleware('guest');
@@ -39,11 +44,6 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/loginn', [WebAuthController::class, 'login']);
     Route::post('/register', [MemberController::class, 'store']);
 });
-
-Route::post('/members', [MemberController::class, 'store']);
-Route::get('/getBalance', [MemberController::class, 'getBalance']);
-Route::get('/getGameList', [MemberController::class, 'getGameList']);
-Route::get('/launchGame', [MemberController::class, 'launchGame']);
 
 Route::middleware('jwt')->group(function () {
 
@@ -88,6 +88,7 @@ Route::middleware('jwt')->group(function () {
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', [DashboardController::class, 'getDashboardData']);
     });
+    
 
     // Route::group(['prefix' => 'dashboard'], function () {
     //     Route::get('/', [DashboardController::class, 'getDashboardData'])->permission(PermissionEnum::DASHBOARD_INDEX->value);

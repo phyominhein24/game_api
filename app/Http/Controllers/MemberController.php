@@ -41,7 +41,6 @@ class MemberController extends Controller
     }
 
     // Log::info($apiUrl . '?' . http_build_query($queryParams));
-
     public function store(MemberStoreRequest $request)
     {
         DB::beginTransaction();
@@ -157,7 +156,9 @@ class MemberController extends Controller
             $games = json_decode($data['gamelist'], true);
     
             return response()->json([
-                'games' => $games
+                "message" => "Game List retrieved successfully",
+                "data" => $games,
+                "total" => count($games)
             ]);
         }
 
@@ -175,12 +176,12 @@ class MemberController extends Controller
 
         $username      = strtolower($request->input('username')); 
         $password      = $request->input('password');
-        $providerCode  = $request->input('providercode');
-        $type          = $request->input('type'); 
+        $providerCode  = $request->input('providercode', 'PG');
+        $type          = $request->input('typef', 'SL'); 
         $gameId        = $request->input('gameid', '0'); 
         $lang          = $request->input('lang', 'en-US'); 
         $html5         = $request->input('html5', '1'); 
-        $blimit        = $request->input('blimit', null); 
+        $blimit        = $request->input('blimit', 'AG'); 
 
     
         $signatureString = $operatorCode . $password . $providerCode . $type . $username . $secretKey;
@@ -209,8 +210,9 @@ class MemberController extends Controller
 
         if (isset($data['errCode']) && $data['errCode'] === "0") {
             return response()->json([
-                'success'  => true,
-                'gameUrl'  => $data['gameUrl']
+                "status" => 200,
+                "message" => "Game Launch successfully",
+                "data" => $data['gameUrl']
             ]);
         }
 
